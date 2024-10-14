@@ -4,11 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import { getUser } from '../controllers/UserController';
 
 const LoginView = () => {
-  const [cpfEmail, setCpfEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [cpfEmail, setCpfEmail] = useState(''); //Armazena o valor do campo de texto que o usuário insere (CPF ou e-mail).
+  const [password, setPassword] = useState(''); //Armazena o valor da senha inserida pelo usuário.
   const navigation = useNavigation();
 
   const handleLogin = () => {
+    //Chama a função getUser do controlador, que verifica se o CPF/E-mail e a senha fornecidos são válidos.
     getUser(cpfEmail, password, (user) => {
       if (user) {
         console.log('Profile Type:', user.profile_type); // Verifica o valor de profile_type
@@ -32,7 +33,7 @@ const LoginView = () => {
     setCpfEmail('');
     setPassword('');
   };
-
+//Renderização da interface
   return (
     <View style={styles.container}>
       {/* Adiciona a logo aqui */}
