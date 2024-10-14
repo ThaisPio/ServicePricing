@@ -3,10 +3,9 @@ import { View, Text, FlatList, Button, TouchableOpacity, StyleSheet } from 'reac
 import { getServicesByUserId, getAllServices, handleDeleteService } from '../controllers/ServiceController';
 
 const ServiceListView = ({ route, navigation }) => {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState([]); //estado que armazena a lista de serviços.
 
-  // Captura user_id e profile_type dos parâmetros da navegação
-  const { user_id, profile_type } = route.params;
+  const { user_id, profile_type } = route.params; //identificam o ID do usuário e o tipo de perfil (cliente, empresa ou administrador)
 
   // Log de verificação para garantir que os parâmetros estão corretos
   console.log("user_id recebido:", user_id);
@@ -30,7 +29,10 @@ const ServiceListView = ({ route, navigation }) => {
     }
   }, [user_id, profile_type]);
 
+  //Exclui um serviço específico. 
+  
   const deleteService = (id) => {
+    //Chama a função handleDeleteService, que remove o serviço do banco de dados, e, em seguida, remove o serviço da lista de serviços 
     handleDeleteService(id, () => {
       setServices(services.filter(service => service.id !== id));
     });
@@ -38,7 +40,7 @@ const ServiceListView = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* Exibe o botão de adicionar serviço apenas para 'empresa' ou 'administrador' */}
+      // Exibe o botão de adicionar serviço apenas para 'empresa' ou 'administrador' 
       {(profile_type === 'empresa' || profile_type === 'administrador') && (
         <TouchableOpacity 
           style={styles.addButton}
