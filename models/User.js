@@ -1,5 +1,8 @@
 import { db } from '../database/database'
 
+//Essa função insere um novo usuário no banco de dados- Ela recebe as informações do usuário
+//(nome, e-mail/CPF, telefone, senha, tipo de perfil) e uma função de callback
+//(successCallback) para ser chamada quando a operação terminar.
 export const insertUser = async (name, cpf_email, phone, password, profile_type, successCallback) => {
   try {
     db.transaction(tx => {
@@ -22,7 +25,7 @@ export const insertUser = async (name, cpf_email, phone, password, profile_type,
     successCallback(null);
   }
 };
-
+//Função valida o login de um usuário. Ela verifica se existe um usuário com o cpf_email e password fornecidos no banco de dados
 export const validateUserLogin = async (cpf_email, password, successCallback, errorCallback) => {
   try {
     db.transaction(tx => {
@@ -65,7 +68,7 @@ export const getServicesByUser = (user_id, callback) => {
   });
 };
 
-// Buscar todos os serviços
+// Buscar todos os serviços adicionados
 export const getAllServices = (callback) => {
   db.transaction(tx => {
     tx.executeSql(
