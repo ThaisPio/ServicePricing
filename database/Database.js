@@ -21,7 +21,7 @@ export const setupDatabase = () => {
       (_, error) => { console.log("Erro ao criar tabela users:", error); }
     ); 
 
-    // Criação de tabela de tarefas
+    // Criação de tabela de serviços
     tx.executeSql(
       `CREATE TABLE IF NOT EXISTS services (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
