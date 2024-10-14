@@ -3,19 +3,21 @@ import { View, TextInput, Button, Alert, StyleSheet, Text} from 'react-native';
 import { handleAddUser } from '../controllers/UserController';
 import { Picker } from '@react-native-picker/picker';
 
+//Esses estados armazenam os valores inseridos pelo usuário nos campos de texto e na seleção de perfil
 const CadastroView = ({ navigation }) => {
   const [name, setName] = useState('');
   const [cpfEmail, setCpfEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [profileType, setProfileType] = useState('cliente'); // Padrão para "cliente"
-
+  
+//Verifica se todos os campos obrigatórios foram preenchidos. Caso contrário, exibe uma mensagem de erro
   const handleRegister = () => {
     if (!name || !cpfEmail || !phone || !password || !profileType) {
       Alert.alert('Preencha todos os campos obrigatórios.');
       return;
     }
-  
+  //Se todos os campos forem preenchidos, chama a função handleAddUser, que adiciona o usuário ao banco de dados ou servidor
     handleAddUser(name, cpfEmail, phone, password, profileType, (result) => {
       if (result && result.insertId) {
         Alert.alert('Usuário cadastrado com sucesso!');
@@ -27,7 +29,7 @@ const CadastroView = ({ navigation }) => {
   };
   
   
-
+//Renderização da interface
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Cadastro</Text>
