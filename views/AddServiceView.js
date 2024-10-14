@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { handleAddService } from '../controllers/ServiceController';
-
+//Os estados são usados para armazenar os dados inseridos pelo usuário (nome da empresa, localização...)
 const AddServiceView = ({ navigation, route }) => {
   const [companyName, setCompanyName] = useState('');
   const [location, setLocation] = useState('');
@@ -11,26 +11,27 @@ const AddServiceView = ({ navigation, route }) => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
 
-  // Captura user_id e profile_type dos parâmetros de navegação
+  // Verifica se o user_id está disponível. Se não estiver, exibe um alerta de erro e interrompe a execução da tela
   const { user_id, profile_type } = route.params;
 
   if (!user_id) {
     Alert.alert("Erro", "Usuário não identificado. Tente novamente.");
     return;
   }
-
+//Verifica se todos os campos estão preenchidos. Caso algum campo esteja vazio, exibe um alerta
   const addService = () => {
     if (!companyName || !location || !serviceName || !category || !description || !price) {
       Alert.alert('Erro', 'Preencha todos os campos.');
       return;
     }
-
+//Verifica se o preço inserido é um número válido. Se não for, exibe um alerta
     const numericPrice = parseFloat(price);
     if (isNaN(numericPrice)) {
       Alert.alert('Erro', 'O preço deve ser um número válido.');
       return;
     }
-
+//Essa função insere o serviço no banco de dados. Passa as informações do serviço (nome da empresa, localização, etc.) 
+//e o user_id do usuário que está cadastrando o serviço.
     handleAddService(companyName, location, serviceName, category, description, numericPrice, user_id, (result) => {
       if (result) {
         console.log("Serviço cadastrado com sucesso no banco:", result);
